@@ -1,13 +1,25 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url("./vendor/normalize.css");
+@import url("./vendor/fonts/fonts.css");
+@import url("./blocks/body/body.css");
+@import url("./blocks/header/header.css");
+@import url("./blocks/logo/logo.css");
+@import url("./blocks/profile/profile.css");
+@import url("./blocks/elements/elements.css");
+@import url("./blocks/popup/popup.css");
+@import url("./blocks/popup/_type_image/popup_type_image.css");
+@import url("./blocks/popup/_open/popup_open.css");
+@import url("./blocks/footer/footer.css");
+
+/*
+@import url("../src/components/vendor/normalize.css");
+@import url("../src/components/vendor/fonts/fonts.css");
+@import url("../src/components/blocks/body/body.css");
+@import url("../src/components/blocks/header/header.css");
+@import url("../src/components/blocks/logo/logo.css");
+@import url("../src/components/blocks/profile/profile.css");
+@import url("../src/components/blocks/elements/elements.css");
+@import url("../src/components/blocks/popup/popup.css");
+@import url("../src/components/blocks/popup/_type_image/popup_type_image.css");
+@import url("../src/components/blocks/popup/_open/popup_open.css");
+@import url("../src/components/blocks/footer/footer.css");*/
