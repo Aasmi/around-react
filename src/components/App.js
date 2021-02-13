@@ -11,8 +11,7 @@ function App() {
   const [addCardOpen, setAddCardOpen] = useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
   const [imagePopupOpen, setImagePopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState('');
-
+  const [selectedCard, setSelectedCard] = useState({name: '', link: ''});
     {/* handlers */}
     function handleEditAvatarClick(event){
       setEditAvatarOpen(true);
@@ -30,15 +29,22 @@ function App() {
       setDeletePopupOpen(true);
     }
 
+    function closeAllPopups(){
+      setEditAvatarOpen(false);
+      setEditProfileOpen(false);
+      setAddCardOpen(false);
+      setDeletePopupOpen(false);
+      setImagePopupOpen(false);
+      setSelectedCard({name: '', link: ''});
+    }
+
     function handleClosePopups(event){
       if(event.target !== event.currentTarget)
       return
-          setEditAvatarOpen(false);
-          setEditProfileOpen(false);
-          setAddCardOpen(false);
-          setDeletePopupOpen(false);
-          setImagePopupOpen(false);
+          closeAllPopups();
     }
+
+    
 
     function handleCardClick(card) {
       setSelectedCard(card);
