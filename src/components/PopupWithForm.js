@@ -1,6 +1,16 @@
 import React from 'react';
 
 function PopupWithForm(props){
+   /*  const {
+        name, 
+        onSubmit,
+        onClose,
+        isOpen,
+        buttonText,
+        children,
+        title}
+        = props;  */
+
     return(
         <div className = {`popup popup_${props.name} ${props.isOpen ? "popup_open" : ""}`} onClick={props.onClose}>
         <div className="popup__container">

@@ -1,25 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import api from '../utils/api';
 import Card from './Card';
+import CurrentUserContext from '../contexts/CurrentUserContext.js';
 
 function Main(props) {
     const {onEditAvatar,
     onEditProfile,
     onAddPlace,
     onCardClick,
-    onCardDelete} = props;
+    onCardDelete,
+    onCardLike,
+    cards
+     } = props;
 
-    //set states for profile content
-   const [userAvatar, setUserAvatar] = useState('');
+    const currentUser = useContext(CurrentUserContext);
+
+    //set states for profile content - Context added , usestate is not needed
+   /* const [userAvatar, setUserAvatar] = useState('');
    const [userName, setUserName] = useState('');
    const [userDescription, setUserDescription] = useState('');
    const [isLoaded, setIsLoaded] = useState(false);
-
+ */
    //set states for cards
-   const [cards, setCards] = useState([]);
+   //const [cards, setCards] = useState([]);
    
    //call server for profile content
-   useEffect(() => {
+  /*  useEffect(() => {
        api.getUserInfo()
        .then((res) => {
            setUserAvatar(res.avatar);
@@ -38,22 +44,22 @@ function Main(props) {
        })
        .catch(err => console.log(err));
    }, []);
-
+ */
 
    //JSX of main section
     return(
             <main className="content">
                 <section className="profile">
                         <div className="profile__avatar">
-                            <img className="profile__image" src={userAvatar} alt={userAvatar}/>
-                            <button onClick={props.onEditAvatar} className="profile__image-edit" type="button" aria-label="Edit Avatar"></button>
+                            <img className="profile__image" src={currentUser.avatar} alt={currentUser.avatar}/>
+                            <button onClick={onEditAvatar} className="profile__image-edit" type="button" aria-label="Edit Avatar"></button>
                         </div>
-                    <div className="profile__info">
-                        <h1 className="profile__info-title">{userName}</h1>
-                        <button className="profile__edit-button" onClick={props.onEditProfile} aria-label="Edit Profile"></button>
-                        <p className="profile__info-subtitle">{userDescription}</p>   
-                    </div>
-                    <button className="profile__add-button" onClick={props.onAddPlace} aria-label="Add"></button>
+                        <div className="profile__info">
+                            <h1 className="profile__info-title">{currentUser.name}</h1>
+                            <button className="profile__edit-button" onClick={onEditProfile} aria-label="Edit Profile"></button>
+                            <p className="profile__info-subtitle">{currentUser.about}</p>   
+                        </div>
+                         <button className="profile__add-button" onClick={onAddPlace} aria-label="Add"></button>
                 </section>
                 <section className="elements">
                     <>
@@ -63,6 +69,7 @@ function Main(props) {
                             card = {card}
                             onCardDelete = {onCardDelete}
                             onCardClick = {onCardClick}
+                            onCardLike = {onCardLike}
                         />
                         )
                     )}
