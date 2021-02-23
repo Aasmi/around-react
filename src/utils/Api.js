@@ -97,6 +97,22 @@ class Api {
         .then(res => res.ok ? res.json() : Promise.reject('Error' + res.statusText))
         //.catch(err => console.log(err))
     }
+
+    updateLikes(cardId, liked) {
+        let method= 'DELETE';
+        if(liked) method= 'PUT';
+      
+        return fetch(this._baseUrl + '/cards/likes/' + cardId, {
+          method: method,
+          headers: this._headers
+        }).then((res) => {
+          if (res.ok) {
+            return res.json();
+          } 
+          return Promise.reject('Error! ' + res.statusText)
+        }); 
+      }
+      
 }
 
 const api = new Api({ 

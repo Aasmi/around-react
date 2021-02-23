@@ -11,9 +11,9 @@
     outline: none;
 }
 
-/* .elements__trash_visible {
+ /* .elements__trash_visible {
     visibility: visible;
-} */
+}  */
 
 .elements__trash:hover{
     opacity: .6;

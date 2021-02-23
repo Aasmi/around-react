@@ -19,21 +19,28 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({name: '', link: ''});
   const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]); 
+  const [submitStatus, setSubmitStatus] = useState(false);
 
 
     {/* handlers */}
-    function handleCardLike(card) {
-      // Check one more time if this card was already liked
+   /*  function handleCardLike(card) {
       const isLiked = card.likes.some(i => i._id === currentUser._id);
       
-      // Send a request to the API and getting the updated card data
       api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-          // Create a new array based on the existing one and putting a new card into it
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-        // Update the state
-        setCards(newCards);
+                setCards(newCards);
       });
-    }
+    } */
+
+    function handleCardLike(card) {
+      const isLiked = card.likes.some(i => i._id === currentUser._id);
+      api.updateLikes(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        setCards(newCards);
+      })
+      .catch(err => console.log(err))
+  } 
 
     function handleCardDelete(card){
       api.removeCard(card._id)
@@ -90,20 +97,46 @@ function App() {
     }
 
     function handleClosePopups(event){
+      console.log("Am I handling all close popups");
       if(event.target !== event.currentTarget)
-      return
-          closeAllPopups();
+        return  
+      closeAllPopups();
     } 
     
-    function handleAddPlace({name, link}){
+
+  //This function is not working in the first review
+  /* function handleAddPlace({name, link}){
       api.addCard({name, link})
       .then((newCard)=> {
+         console.log("The newly added card details are:");
+         console.log(name);
+         console.log(link);
          setCards([newCard, ...cards]);
       })
       .catch((err) => console.log(err))
       .finally(() => closeAllPopups());
-  }
+  }  */
 
+  /*  function handleAddPlace(cardData) {
+    api.addCard({name: cardData.name, link: cardData.link})
+    .then((newCard) => {
+      setCards([newCard, ...cards]);
+      closeAllPopups();
+    })
+    .catch(err => console.log(err));
+  }  */
+
+  function handleAddCardSubmit(cardData) {
+    api
+      .addCard({ name: cardData.name, link: cardData.link })
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  }
+  
+  
   function handleUpdateAvatar(avatar) {
     api.setUserAvatar(avatar)
     .then((res) => {
@@ -149,7 +182,10 @@ function App() {
           <AddPlacePopup
               isOpen={addCardOpen}
               onClose = {handleClosePopups}
-              onAddPlace = {handleAddPlace} />
+              /* onAddPlace = {handleAddPlace}  */
+              onAddPlace={handleAddCardSubmit}
+              submitStatus={submitStatus}
+              setSubmitStatus={setSubmitStatus} />
              
           <PopupWithForm 
               name="type_delete-card" 

@@ -3,50 +3,47 @@ import React, {useState} from 'react';
 
 function AddPlacePopup(props) {
 
-    const {
-        isOpen,
-        onClose,
-        onAddPlace
-    } = props;
+  const [name, setName] = useState('')
+  const [link, setLink] = useState('')
 
-    const [cardName, setCardName] = useState('');
-    const [link, setLink] = useState('');
 
-    function handleChangeCardName(e){
-        setCardName(e.target.value);
-    }
 
-    function handleChangeLink(e){
-        setLink(e.target.value);
-    }
-    
-    function handleSubmit(e) {
-        // Prevent the browser from navigating to the form address
-        e.preventDefault();
-        // Pass the values of the managed components to the external handler
-        onAddPlace({
-            name: cardName,
-            link
-        });
-        setLink('');
-        setCardName('');
-        }
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+
+  function handleLinkChange(e) {
+    setLink(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onAddPlace({
+      name,
+      link
+    });
+    props.setSubmitStatus(true);
+    setName('');
+    setLink('');
+  } 
 
     return (
 
         <PopupWithForm 
-            name="type_add-card" 
-            title="New Place" 
-            buttonText="Create" 
-            isOpen={isOpen} 
-            onClose={onClose}
-            onSubmit={handleSubmit}>
+            name = 'type_add-card' 
+            formType = 'type_profile' 
+            title = 'New Place' 
+            buttonText = { props.submitStatus ? 'Creating...' : 'Create' } 
+            isOpen = {props.isOpen} 
+            onClose = {props.onClose}
+            onSubmit = {handleSubmit}>
 
             <input id="card-title" 
-            type='text' 
+            type= 'title' 
             name='card-title' 
-            value = {cardName}
-            onChange = {handleChangeCardName}
+            value = {name}
+            onChange = {handleNameChange}
             className="popup__input popup__input_type_title" 
             placeholder='Title' required maxLength="30" minLength="2"/>
             <span id="card-title-error" className = "popup__error"></span>
@@ -54,8 +51,8 @@ function AddPlacePopup(props) {
             <input id="card-url" 
             type='url' 
             name='card-link' 
-            value = {link}
-            onChange = {handleChangeLink}
+            value = {link} 
+            onChange = {handleLinkChange}
             className='popup__input popup__input_type_link' 
             placeholder='Image Link' required/>
             <span id="card-url-error" className = "popup__error"></span>
