@@ -1,7 +1,7 @@
 import React from 'react';
 
 function PopupWithForm(props){
-   /*  const {
+    const {
         name, 
         onSubmit,
         onClose,
@@ -9,12 +9,12 @@ function PopupWithForm(props){
         buttonText,
         children,
         title}
-        = props;  */
+        = props;  
 
     return(
         <div className = {`popup popup_${props.name} ${props.isOpen ? "popup_open" : ""}`} onClick={props.onClose}>
         <div className="popup__container">
-            <form action="#" className={`popup__form ${props.name}-form`} noValidate>
+            <form action="#" className={`popup__form ${props.name}-form`} onSubmit={onSubmit} noValidate>
                 <h2 className="popup__title">{props.title}</h2> 
                 {props.children}
                 <button className="popup__save" type="submit" aria-label="Save">{props.buttonText}</button>
