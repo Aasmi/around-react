@@ -17,7 +17,7 @@ function App() {
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
   const [imagePopupOpen, setImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({name: '', link: ''});
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]); 
   const [submitStatus, setSubmitStatus] = useState(false);
 

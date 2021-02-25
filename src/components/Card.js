@@ -17,10 +17,6 @@ function Card(props) {
     // Check if the card was liked by the current user
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    function handleDeleteClick() {
-        onCardDelete(card)
-      }
-
     function handleLikeClick(e) {
        onCardLike(card)
     }
@@ -31,7 +27,7 @@ function Card(props) {
 
     return(
         <figure className="elements__element">
-                <img className="elements__element-pic" alt="card image" onClick ={() => onCardClick(card)} src={card && card.link}/>
+                <img className="elements__element-pic" alt={card.name} onClick ={() => onCardClick(card)} src={card && card.link}/>
                 <figcaption className="elements__caption">{card.name}</figcaption>
                 <div className = "elements__favorite-container">
                     {/* <button className="elements__favorite" type="button" aria-label="Like"></button> */}
